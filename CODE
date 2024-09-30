@@ -1,0 +1,61 @@
+
+import java.util.Scanner;
+
+class Room {
+    String type;
+    boolean isBooked;
+
+    Room(String type) {
+        this.type = type;
+        this.isBooked = false;
+    }
+}
+
+public class HotelReservationSystem {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Room[] rooms = {new Room("Single"), new Room("Double"), new Room("Suite")};
+
+        while (true) {
+            System.out.println("1. Search Rooms");
+            System.out.println("2. Make Reservation");
+            System.out.println("3. View Booking Details");
+            System.out.println("4. Exit");
+            System.out.print("Choose an option: ");
+            int option = scanner.nextInt();
+
+            switch (option) {
+                case 1:
+                    System.out.println("Available Rooms:");
+                    for (int i = 0; i < rooms.length; i++) {
+                        if (!rooms[i].isBooked) {
+                            System.out.println(i + 1 + ". " + rooms[i].type);
+                        }
+                    }
+                    break;
+                case 2:
+                    System.out.print("Enter room number to book: ");
+                    int roomNumber = scanner.nextInt();
+                    if (roomNumber > 0 && roomNumber <= rooms.length && !rooms[roomNumber - 1].isBooked) {
+                        rooms[roomNumber - 1].isBooked = true;
+                        System.out.println("Room booked successfully!");
+                    } else {
+                        System.out.println("Invalid room number or room is already booked.");
+                    }
+                    break;
+                case 3:
+                    System.out.println("Booking Details:");
+                    for (int i = 0; i < rooms.length; i++) {
+                        System.out.println(i + 1 + ". " + rooms[i].type + " - " + (rooms[i].isBooked ? "Booked" : "Available"));
+                    }
+                    break;
+                case 4:
+                    System.out.println("Exiting...");
+                    scanner.close();
+                    return;
+                default:
+                    System.out.println("Invalid option! Please try again.");
+            }
+        }
+    }
+}
